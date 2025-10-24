@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="shortcut icon" href="cropped_circle_image.png" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<title>Rashid Khan</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+    colors: {
+      primary: "#f20d33",
+      "background-light": "#f0f2f5",
+      "background-dark": "#11080a",
+      "text-light": "#1a1a1a",
+      "text-dark": "#ffffff",
+      "card-light": "#ffffff",
+      "card-dark": "rgba(255, 255, 255, 0.05)",
+      "border-light": "rgba(0, 0, 0, 0.1)",
+      "border-dark": "rgba(242, 13, 51, 0.3)",
+    },
+    fontFamily: {
+      display: ["Space Grotesk", "sans-serif"],
+    },
+    borderRadius: {
+      DEFAULT: "0.5rem",
+      lg: "1rem",
+      xl: "1.5rem",
+      full: "9999px",
+    },
+      },
+    },
+  };
+    </script>
+<style>
+   html {
+    scroll-behavior: smooth;
+  }
+  .glow {
+    box-shadow: 0 0 5px theme("colors.primary"), 0 0 10px theme("colors.primary"), 0 0 20px theme("colors.primary"), 0 0 30px theme("colors.primary");
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  .dark .interactive-element:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 8px theme("colors.primary"), 0 0 15px theme("colors.primary"), 0 0 30px theme("colors.primary"), 0 0 50px theme("colors.primary");
+  }
+  .light .glow {
+    box-shadow: 0 0 5px theme("colors.primary" / 0.5), 0 0 10px theme("colors.primary" / 0.5);
+  }
+  .card-glow {
+    box-shadow: 0 0 2px theme("colors.primary"), 0 0 5px theme("colors.primary");
+    border: 1px solid theme("colors.primary / 0.5");
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+   .dark .card-glow:hover {
+    transform: translateY(-4px);
+     box-shadow: 0 0 5px theme("colors.primary"), 0 0 15px theme("colors.primary");
+  }
+  .light .card-glow {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid theme("colors.border-light");
+  }
+  .text-glow {
+    text-shadow: 0 0 2px theme("colors.primary"), 0 0 4px theme("colors.primary");
+  }
+  .light .text-glow {
+    text-shadow: none;
+  }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 1.5rem;
+    left: 11px;
+    width: 2px;
+    height: calc(100% - 1.5rem);
+    background-color: theme("colors.border-dark");
+  }
+  .light .timeline-item::before {
+    background-color: theme("colors.border-light");
+  }
+  .timeline-item:last-child::before {
+    height: 0;
+  }
+  #bg-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    transform: translateZ(-1px) scale(1.5);
+  }
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transform: translateZ(-0.5px) scale(1.2);
+  }
+  .parallax-container {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .parallax-content {
+    transform-style: preserve-3d;
+  }
+  .star {
+    position: absolute;
+    background-color: #ff9800;border-radius: 50%;
+    opacity: 0.7;
+    box-shadow: 0 0 4px #ff9800, 0 0 8px #ff9800;
+    animation: float 20s infinite ease-in-out;
+  }
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0);
+    }
+    50% {
+      transform: translateY(-200px) translateX(100px);
+    }
+    100% {
+      transform: translateY(0) translateX(0);
+    }
+  }
+  .group:hover .group-hover\:block {
+    display: block;
+  }
+  .nav-link {
+    position: relative;
+    transition: color 0.3s ease-in-out;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: theme('colors.primary');
+    transition: width 0.3s ease-in-out;
+    box-shadow: 0 0 5px theme("colors.primary");
+  }
+  .nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: theme('colors.text-dark');
+    text-shadow: 0 0 2px theme("colors.primary"), 0 0 4px theme("colors.primary");
+  }
+    </style>
+    
+</head>
+<body class="bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark font-display antialiased">
+<div class="parallax-container">
+<div id="bg-stars"></div>
+<div id="particles-js"></div>
+<div class="parallax-content relative z-10 flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-border-light bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:border-border-dark dark:bg-background-dark/80 sm:px-10">
+<div class="flex items-center gap-3">
+<svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+<h2 class="text-xl font-bold text-text-light dark:text-text-dark">RK.</h2>
+</div>
+<nav class="hidden items-center gap-6 md:flex">
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#education">Education</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#work">Work</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#acheivements">Acheivements</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#courses">Courses</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#lang">Languages</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#skills">Skills</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#gallery">Gallery</a>
+<a class="nav-link text-sm font-medium text-text-light/70 dark:text-text-dark/70" href="#contact">Contact</a>
+</nav>
+<div class="flex items-center gap-2">
+<a class="interactive-element hidden sm:flex h-10 w-10 items-center justify-center rounded-full border border-transparent bg-transparent transition-all hover:border-primary" target="_blank" href="mailto:rashidkhanreshii@gmail.com">
+<span class="material-symbols-outlined text-primary text-glow text-lg">mail</span>
+</a>
+ <a class="interactive-element hidden sm:flex h-10 w-10 items-center justify-center rounded-full border border-transparent bg-transparent transition-all hover:border-primary"target="_blank" href="https://github.com/Reshikhan">
+<svg class="h-5 w-5 text-primary text-glow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"></path></svg>
+</a>
+<a class="interactive-element hidden sm:flex h-10 w-10 items-center justify-center rounded-full border border-transparent bg-transparent transition-all hover:border-primary"target="_blank" href="https://www.linkedin.com/in/rashidkhanreshi">
+<svg class="h-5 w-5 text-primary text-glow" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+<a class="interactive-element ml-2 flex h-10 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-primary bg-transparent px-5 text-sm font-bold text-primary transition-all hover:bg-primary/10" target="_blank" rel="noopener" href="Rashid_Khan_CV.pdf.pdf">
+  <span class="truncate">View Resume</span>
+</a>
+<button class="interactive-element flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border-light bg-card-light transition-colors dark:border-border-dark dark:bg-card-dark ml-2" id="theme-toggle">
+<span class="material-symbols-outlined text-text-light dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined hidden text-text-dark dark:inline">light_mode</span>
+</button>
+</div>
+</header>
+<main class="mx-auto w-full max-w-5xl flex-1 px-4 py-16 sm:px-6 lg:px-8">
+<section class="scroll-mt-20 pt-24" id="about"></section>
+<div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+<div class="flex flex-col justify-center gap-8">
+<div class="space-y-3 text-left">
+<h1 class="text-5xl font-bold tracking-tighter text-text-light dark:text-text-dark sm:text-6xl md:text-7xl">
+<span class="dark:text-glow">Rashid Khan</span>
+</h1>
+<p class="text-lg text-text-light/80 dark:text-text-dark/80 md:text-xl">
+  My name is Rashid Khan, I am a Computer Science student who completed Higher Secondary School education in 2024, achieving an A+ grade in Computer Science. 
+  As a highly motivated and detail-oriented student, I am excited to apply my skills and knowledge in programming and software engineering to drive innovation and solve real-world problems. 
+  With a strong foundation in algorithms, data structures, and software design patterns, I am confident in my ability to develop efficient, scalable, and maintainable software solutions. 
+  Proficient in a range of programming languages, including Java, Python, and C++, I am eager to bring my technical expertise and passion for software engineering to a dynamic and forward-thinking organization.
+</p>
+</div>
+<div class="flex items-center gap-4">
+  <a href="mailto:rashidkhanreshii@gmail.com?subject=Contact%20from%20Website" class="interactive-element flex h-12 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">Contact Me</span>
+  </a>
+</div>
+</div>
+<div class="group relative flex h-80 w-full items-center justify-center rounded-xl bg-cover bg-center" style='background-image: url("Gemini_Generated_Image_58a1hy58a1hy58a1.png");'>
+<div class="absolute inset-0 rounded-xl bg-background-dark/50 transition-all group-hover:bg-background-dark/30 dark:bg-background-dark/50 dark:group-hover:bg-background-dark/30"></div>
+<div class="card-glow absolute inset-0 rounded-xl transition-all"></div>
+</div>
+</div>
+</section>
+
+<section class="scroll-mt-20 pt-24" id="education">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Education</span></h2>
+<div class="relative pl-6">
+<div class="space-y-12">
+<div class="timeline-item relative">
+<div class="absolute -left-3 top-3 h-6 w-6 rounded-full bg-primary glow"></div>
+<div class="ml-8 rounded-lg bg-card-light p-6 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+  <h3 class="text-xl font-bold text-text-light dark:text-text-dark">Secondary School Education</h3>
+  <p class="text-md font-medium text-primary">2017 - 2022</p>
+  <h3 class="text-xl font-bold text-text-light dark:text-text-dark">Peshawar Model School Boys-1, Warsak Road Peshawar, Pakistan</h3>
+  <ul class="mt-3">
+    <li class="text-sm text-text-light/60 dark:text-text-dark/60">Subjects:</li>
+    <li class="mt-2 text-text-light/80 dark:text-text-dark/80">General Science, English, Mathematics, Physics</li>
+    <li class="text-sm text-text-light/60 dark:text-text-dark/60 mt-3">Obtained Grade:</li>
+    <li class="mt-2 text-text-light/80 dark:text-text-dark/80">A+ Grade in all Subjects</li>
+  </ul>
+  <div class="mt-4">
+    <a href="10th class DMC.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Transcript</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view Transcript</p>
+  </div>
+  <div class="mt-2">
+    <a href="10th Certificate.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Diploma</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view Diploma</p>
+  </div>
+</div>
+</div>
+
+<div class="timeline-item relative">
+<div class="absolute -left-3 top-3 h-6 w-6 rounded-full bg-primary glow"></div>
+<div class="ml-8 rounded-lg bg-card-light p-6 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+<h3 class="text-xl font-bold text-text-light dark:text-text-dark">Higher Secondary School Education (College)</h3>
+<p class="text-md font-medium text-primary">2023 - 2024</p>
+<h3 class="text-xl font-bold text-text-light dark:text-text-dark">Government College Peshawar, Pakistan</h3>
+<ul class="mt-3">
+  <li class="text-sm text-text-light/60 dark:text-text-dark/60">Subjects:</li>
+  <li class="mt-2 text-text-light/80 dark:text-text-dark/80">Computer Science, English, Mathematics, Physics</li>
+  <li class="text-sm text-text-light/60 dark:text-text-dark/60 mt-3">Obtained Grade:</li>
+  <li class="mt-2 text-text-light/80 dark:text-text-dark/80">A+ Grade in all Subjects</li>
+</ul>
+ <div class="mt-2">
+    <a href="12th DMC.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Transcript</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view Transcript</p>
+  </div>
+  <div class="mt-2">
+    <a href="12th certificate.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Diploma</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view Diploma</p>
+  </div>
+</div>
+</div>
+
+</div> <!-- .space-y-12 -->
+</div> <!-- .relative pl-6 -->
+</section>
+
+<section class="scroll-mt-20 pt-24" id="work">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Work Experience</span></h2>
+<div class="relative pl-6">
+<div class="space-y-12">
+<div class="timeline-item relative">
+<div class="absolute -left-3 top-3 h-6 w-6 rounded-full bg-primary glow"></div>
+<div class="ml-8 rounded-lg bg-card-light p-6 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+  <ul>
+    <li>Programming</li>
+    <li>Web Development</li>
+    <li>Worked on various projects including [Trading, Airdrops]</li>
+    <li>Cryptocurrency</li>
+    <li>Communication</li>
+    <li>Problem solving</li>
+    <li>Freelancing</li>
+  </ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="scroll-mt-20 pt-24" id="acheivements">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Acheivements</span></h2>
+<div class="relative pl-6">
+<div class="space-y-12">
+<div class="timeline-item relative">
+<div class="absolute -left-3 top-3 h-6 w-6 rounded-full bg-primary glow"></div>
+<div class="ml-8 rounded-lg bg-card-light p-6 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+  <ul>
+    <li class="mt-3 text-text-light/80 dark:text-text-dark/80">Overall Topper of the Government Primary School (SSC).</li>
+    <li class="mt-3 text-text-light/80 dark:text-text-dark/80">Goodwill Scholarship in Peshawar Model School Boys-1, Warsak Road Peshawar,Pakistan.</li>
+  </ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="scroll-mt-20 pt-24" id="courses">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Online Courses</span></h2>
+<div class="relative pl-6">
+<div class="space-y-12">
+<div class="timeline-item relative">
+<div class="absolute -left-3 top-3 h-6 w-6 rounded-full bg-primary glow"></div>
+<div class="ml-8 rounded-lg bg-card-light p-6 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+  <ul>
+    <li>C Programming Basics</li>
+    <li>Introduction to HTML</li>
+    <li>Introduction to Generative AI</li>
+  </ul>
+  <div class="mt-2">
+    <a href="C Programming Basics.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Certificate</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view C Programming Certificate</p>
+  </div>
+  <div class="mt-2">
+    <a href="HTML Certificate.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Certificate</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view HTML Certificate</p>
+  </div>
+   <div class="mt-2">
+    <a href="Generative AI Certificate.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Certificate</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view Generative AI Certificate</p>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="scroll-mt-20 pt-24" id="lang">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Languages</span></h2>
+<div class="relative pl-6">
+<div class="space-y-12">
+<div class="timeline-item relative">
+<div class="absolute -left-3 top-3 h-6 w-6 rounded-full bg-primary glow"></div>
+<div class="ml-8 rounded-lg bg-card-light p-6 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+  <ul>
+    <li>Pashto (Native)</li>
+    <li>Urdu (Fluent)</li>
+    <li>English (Fluent)</li>
+  </ul>
+  <div class="mt-2">
+    <a href="English Proficiency Letter.pdf" target="_blank">
+  <button class="interactive-element flex h-10 w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-base font-bold text-white transition-all sm:w-auto">
+    <span class="truncate">View Certificate</span>
+  </button>
+    </a>
+    <p class="text-sm text-text-light/60 dark:text-text-dark/60 mt-2">Click to view English Proficiency Certificate</p>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="scroll-mt-20 pt-24" id="skills">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Skills</span></h2>
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+<div class="space-y-6">
+<div>
+<div class="mb-2 flex justify-between">
+<p class="font-medium text-text-light dark:text-text-dark">JavaScript</p>
+<p class="text-sm text-text-light/70 dark:text-text-dark/70">80%</p>
+</div>
+<div class="h-2.5 rounded-full bg-primary/20">
+<div class="h-2.5 rounded-full bg-primary glow" style="width: 80%;"></div>
+</div>
+</div>
+<div>
+<div class="mb-2 flex justify-between">
+<p class="font-medium text-text-light dark:text-text-dark">Python</p>
+<p class="text-sm text-text-light/70 dark:text-text-dark/70">65%</p>
+</div>
+<div class="h-2.5 rounded-full bg-primary/20">
+<div class="h-2.5 rounded-full bg-primary glow" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<div class="mb-2 flex justify-between">
+<p class="font-medium text-text-light dark:text-text-dark">C++</p>
+<p class="text-sm text-text-light/70 dark:text-text-dark/70">70%</p>
+</div>
+<div class="h-2.5 rounded-full bg-primary/20">
+<div class="h-2.5 rounded-full bg-primary glow" style="width: 70%;"></div>
+</div>
+</div>
+<div>
+<div class="mb-2 flex justify-between">
+<p class="font-medium text-text-light dark:text-text-dark">HTML</p>
+<p class="text-sm text-text-light/70 dark:text-text-dark/70">90%</p>
+</div>
+<div class="h-2.5 rounded-full bg-primary/20">
+<div class="h-2.5 rounded-full bg-primary glow" style="width: 90%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- NEW: Gallery -->
+<section class="scroll-mt-20 pt-24 max-w-6xl mx-auto px-4" id="gallery">
+  <h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Gallery</span></h2>
+  
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center" onclick="closeLightbox()">
+    <img id="lightbox-img" class="max-h-[90vh] max-w-[90vw] object-contain" src="" alt="">
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-18 at 19.37.53_ea8a6164.jpg" alt=" " loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-18 at 19.37.54_31dbbf37.jpg" alt="" loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-23 at 18.53.56_bb2a3871.jpg" alt="" loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-23 at 18.54.07_cdc9451b.jpg" alt="" loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-23 at 18.54.15_ca577b8a.jpg" alt="" loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-23 at 19.08.59_da6d7c0f.jpg" alt="" loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-23 at 19.08.59_ea629f30.jpg" alt="" loading="lazy" onclick="openLightbox(this)">
+    <img class="gallery-img aspect-[4/3] object-cover rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 cursor-zoom-in hover:opacity-90 transition transform hover:scale-105" src="WhatsApp Image 2025-10-23 at 19.09.00_1f9dfabd.jpg" alt="Presenting poster at a research conference" loading="lazy" onclick="openLightbox(this)">
+  </div>
+
+  <script>
+    function openLightbox(img) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.src = img.src;
+  lightbox.classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.add('hidden');
+    }
+  </script>
+</section>
+
+<section class="scroll-mt-20 pt-24" id="contact">
+<h2 class="mb-12 text-center text-4xl font-bold text-text-light dark:text-text-dark"><span class="dark:text-glow">Contact</span></h2>
+<div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+<div class="rounded-lg bg-card-light p-4 backdrop-blur-sm transition-all duration-300 dark:bg-card-dark card-glow">
+<form class="space-y-6" onsubmit="showMessage(event)">
+<div>
+<label class="text-sm font-medium text-text-light/80 dark:text-text-dark/80" for="name">Name</label>
+<input class="mt-2 block w-full rounded-md border-border-light bg-background-light px-2 py-2 text-text-light placeholder:text-text-light/50 focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-background-dark/50 dark:text-text-dark dark:placeholder:text-text-dark/50" id="name" placeholder="Your Name" type="text"/>
+</div>
+<div>
+<label class="text-sm font-medium text-text-light/80 dark:text-text-dark/80" for="email">Email</label>
+<input class="mt-2 block w-full rounded-md border-border-light bg-background-light px-2 py-2 text-text-light placeholder:text-text-light/50 focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-background-dark/50 dark:text-text-dark dark:placeholder:text-text-dark/50" id="email" placeholder="Your Email" type="email"/>
+</div>
+<div>
+<label class="text-sm font-medium text-text-light/80 dark:text-text-dark/80" for="subject">Subject</label>
+<input class="mt-2 block w-full rounded-md border-border-light bg-background-light px-2 py-2 text-text-light placeholder:text-text-light/50 focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-background-dark/50 dark:text-text-dark dark:placeholder:text-text-dark/50" id="subject" placeholder="Message Subject" type="text"/>
+</div>
+<div>
+<label class="text-sm font-medium text-text-light/80 dark:text-text-dark/80" for="message">Message</label>
+<textarea class="mt-2 block w-full rounded-md border-border-light bg-background-light px-2 py-2 text-text-light placeholder:text-text-light/50 focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-background-dark/50 dark:text-text-dark dark:placeholder:text-text-dark/50" id="message" placeholder="Your Message" rows="2"></textarea>
+</div>
+<button class="interactive-element flex h-10 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-4 text-base font-bold text-white transition-all" type="submit">
+<span class="truncate">Send Message</span>
+</button>
+</form>
+<div id="response-message" class="hidden mt-4 text-center text-green-500"></div>
+</div>
+<div class="flex flex-col justify-center space-y-8">
+<script>
+function showMessage(event) {
+  event.preventDefault();
+  const responseMessage = document.getElementById('response-message');
+  responseMessage.textContent = "Your message has been sent successfully!";
+  responseMessage.classList.remove('hidden');
+}
+</script>
+<div class="text-center space-y-4">
+  <h3 class="text-2xl font-bold text-text-light dark:text-text-dark dark:text-glow mb-6">Contact Information</h3>
+  
+  <div class="flex flex-col items-center justify-center gap-4 mb-6">
+    <div class="flex items-center gap-2">
+  <span class="material-symbols-outlined text-primary text-glow text-xl">call</span>
+  <a class="text-base text-text-light/80 transition-colors hover:text-primary dark:text-text-dark/80 dark:hover:text-primary" target="_blank" href="tel:+923299978920">+923299978920</a>
+    </div>
+    
+    <div class="flex items-center gap-2">
+  <span class="material-symbols-outlined text-primary text-glow text-xl">mail</span>
+  <a class="text-base text-text-light/80 transition-colors hover:text-primary dark:text-text-dark/80 dark:hover:text-primary" target="_blank" href="mailto:rashidkhanreshii@gmail.com">rashidkhanreshii@gmail.com</a>
+    </div>
+  </div>
+  <div class="flex flex-col items-center justify-center">
+    <h3 class="text-xl font-bold text-text-light dark:text-text-dark dark:text-glow mb-4">Social Media</h3>
+    <div class="flex items-center gap-4">
+      <a class="interactive-element flex h-10 w-10 items-center justify-center rounded-full border border-border-dark bg-transparent transition-all hover:border-primary" target="_blank" href="https://github.com/Reshikhan">
+        <svg class="h-5 w-5 text-primary text-glow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"></path></svg>
+      </a>
+      <a class="interactive-element flex h-10 w-10 items-center justify-center rounded-full border border-border-dark bg-transparent transition-all hover:border-primary" target="_blank" href="https://www.linkedin.com/in/rashidkhanreshi">
+        <svg class="h-5 w-5 text-primary text-glow" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Scroll to top button -->
+<button id="scrollToTop" onclick="scrollToTop()" class="fixed bottom-8 right-8 h-12 w-12 rounded-full bg-primary text-white shadow-lg transition-all hover:bg-primary/90 hover:scale-110 hidden items-center justify-center glow">
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+
+<script>
+// Show button when page is scrolled up 20px
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  const scrollToTopButton = document.getElementById("scrollToTop");
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollToTopButton.style.display = "flex";
+  } else {
+    scrollToTopButton.style.display = "none";
+  }
+}
+
+// Scroll to top when button is clicked
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+</script>
+
+</main>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    function updateActiveLink() {
+    let index = sections.length;
+    while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+    navLinks.forEach((link) => link.classList.remove('active'));
+    if(navLinks[index]) {
+      navLinks[index].classList.add('active');
+    }
+    }
+    updateActiveLink();
+    window.addEventListener('scroll', updateActiveLink);
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      document.documentElement.classList.toggle("light");
+    });
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    }
+    themeToggle.addEventListener("click", function () {
+      if (document.documentElement.classList.contains("dark")) {
+    localStorage.theme = "dark";
+      } else {
+    localStorage.theme = "light";
+      }
+    });
+    const starsContainer = document.getElementById('bg-stars');
+    const numStars = 50;
+    for (let i = 0; i < numStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 3 + 1;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.left = `${Math.random() * 100}%`;
+    const animationDuration = Math.random() * 20 + 15;
+    const animationDelay = Math.random() * 10;
+    const xOffset = (Math.random() - 0.5) * 400;
+    const yOffset = (Math.random() - 0.5) * 400;
+    star.style.animationDuration = `${animationDuration}s`;
+    star.style.animationDelay = `-${animationDelay}s`;
+    const keyframes = `
+        @keyframes float-${i} {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(${xOffset}px, ${yOffset}px); }
+        100% { transform: translate(0, 0); }
+        }
+    `;
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = keyframes;
+    document.head.appendChild(styleSheet);
+    star.style.animationName = `float-${i}`;
+    starsContainer.appendChild(star);
+    }
+    particlesJS("particles-js", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+        "enable": true,
+        "value_area": 800
+        }
+        },
+        "color": {
+        "value": "#f20d33"
+        },
+        "shape": {
+        "type": "circle",
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": true,
+        },
+        "size": {
+        "value": 3,
+        "random": true,
+        },
+        "line_linked": {
+        "enable": false,
+        },
+        "move": {
+        "enable": true,
+        "speed": 1,
+        "direction": "none",
+        "random": true,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+        "enable": true,
+        "mode": "bubble"
+        },
+        "onclick": {
+        "enable": true,
+        "mode": "repulse"
+        },
+        "resize": true
+        },
+        "modes": {
+        "bubble": {
+        "distance": 200,
+        "size": 6,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+        },
+        "repulse": {
+        "distance": 200,
+        "duration": 0.4
+        }
+        }
+    },
+    "retina_detect": true
+    });
+  });
+    </script>
+
+</body></html>
